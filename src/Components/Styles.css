@@ -1,0 +1,26 @@
+@import url('https://fonts.googleapis.com/css2?family=Barriecito&family=Dancing+Script&display=swap');
+
+h1 {
+    font-family: 'Arial';
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+    margin-top: 0px;
+}
+
+.heading{
+    font-family: 'Arial';
+    font-size: 20px;
+    padding: 10px;
+    color: white;
+    margin-top: 0px;
+}
+
+
+.ag-theme-alpine {
+    font-family: 'Arial';
+}
+
+.action-button {
+    font-family: 'Arial';
+}
