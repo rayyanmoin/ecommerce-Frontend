@@ -8,21 +8,11 @@ import "./Styles.css";
 import { Loading } from "./Loading";
 import "react-toastify/dist/ReactToastify.css";
 
-// Cell Renderer for Roles
-const RoleCellRenderer = (props) => {
-  const { roles } = props.data || {};
 
-  // Debugging log
-  console.log("Rendering roles:", roles);
-
-  // Safeguard and process roles
-  const rolesDisplay = Array.isArray(roles) ? roles.map((role) => role.name).join(", ") : "No Roles Assigned";
-
-  return <span>{rolesDisplay}</span>;
-};
 
 const User = () => {
   const [user, setUser] = useState([]);
+  const defaultPageSize = 20; 
 
   // Fetch user data from API
   const fetchUser = async () => {
@@ -51,7 +41,7 @@ const User = () => {
     { headerName: "Phone", field: "phone", width: 180 },
     { headerName: "Created At", field: "createdAt", width: 190 },
     { headerName: "Updated At", field: "updatedAt", width: 190 },
-    { headerName: "Roles", field: "roles", width: 190, cellRenderer: RoleCellRenderer },
+    { headerName: "Roles", field: "roleName", width: 190 },
   ];
 
   return (
@@ -64,7 +54,7 @@ const User = () => {
           <br />
           <br />
           <h1>Total Users: {user.length}</h1>
-          <AgGridReact columnDefs={columnDefs} rowData={user} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={user} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

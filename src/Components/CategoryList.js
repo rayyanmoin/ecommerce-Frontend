@@ -14,7 +14,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Category = () => {
  
   const [category, setCategory] = useState([]);
-
+  const defaultPageSize = 20;
 	const fetchCategory = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/category/list");
@@ -46,7 +46,7 @@ const Category = () => {
           <br></br>
           <h1>Total Category: {category.length}</h1>
 
-          <AgGridReact columnDefs={columnDefs} rowData={category} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={category} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

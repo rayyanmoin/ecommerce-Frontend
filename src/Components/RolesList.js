@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Roles = () => {
   const [roles, setRoles] = useState([]);
-
+  const defaultPageSize = 20; 
   const fetchRoles = async () => {
     try {
       const response = await axios.get("http://localhost:8080/roles/list");
@@ -42,7 +42,7 @@ const Roles = () => {
           <br></br>
           <h1>Total Roles: {roles.length}</h1>
 
-          <AgGridReact columnDefs={columnDefs} rowData={roles} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={roles} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

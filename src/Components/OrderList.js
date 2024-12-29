@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Order = () => {
 	const [order, setOrder] = useState([]);
-
+	const defaultPageSize = 20;
 	const fetchOrder = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/order/list");
@@ -43,7 +43,7 @@ const Order = () => {
           <br></br>
           <h1>Total Order: {order.length}</h1>
 
-          <AgGridReact columnDefs={columnDefs} rowData={order} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={order} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

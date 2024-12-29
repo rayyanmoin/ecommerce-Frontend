@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Review = () => {
   const [review, setReview] = useState([]);
-
+  const defaultPageSize = 20;
   const fetchReview = async () => {
     try {
       const response = await axios.get("http://localhost:8080/reviews/list");
@@ -46,7 +46,7 @@ const Review = () => {
           <br></br>
           <h1>Total Review: {review.length}</h1>
 
-          <AgGridReact columnDefs={columnDefs} rowData={review} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={review} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

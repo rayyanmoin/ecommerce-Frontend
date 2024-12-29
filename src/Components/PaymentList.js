@@ -12,7 +12,7 @@ import "react-toastify/dist/ReactToastify.css";
 const Payment = () => {
 
   const [payment, setPayment] = useState([]);
-
+  const defaultPageSize = 20;
 
 	const fetchPayment = async () => {
 		try {
@@ -48,7 +48,7 @@ const Payment = () => {
           <br></br>
           <h1>Total Payment: {payment.length}</h1>
 
-          <AgGridReact columnDefs={columnDefs} rowData={payment} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={payment} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />

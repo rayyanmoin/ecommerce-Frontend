@@ -11,7 +11,7 @@ import "react-toastify/dist/ReactToastify.css";
 
 const Product = () => {
   const [products, setProducts] = useState([]);
-
+  const defaultPageSize = 20;
   const fetchProducts = async () => {
     try {
       const response = await axios.get("http://localhost:8080/products/list");
@@ -46,7 +46,7 @@ const Product = () => {
           <br></br>
           <br></br>
           <h2 className="heading">Total Products: {products.length}</h2>
-          <AgGridReact columnDefs={columnDefs} rowData={products} pagination={true} paginationPageSize={10} />
+          <AgGridReact columnDefs={columnDefs} rowData={products} pagination={true} paginationPageSize={defaultPageSize} />
         </>
       ) : (
         <Loading />
