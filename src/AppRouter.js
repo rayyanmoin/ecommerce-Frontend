@@ -23,6 +23,7 @@ import AddPayment from "./Components/AddPayment.js";
 import AddReview from "./Components/AddReview.js";
 import AddRole from "./Components/AddRole.js";
 import AddUser from "./Components/AddUser.js";
+import EditReview from "./Components/EditReview.js";
 
 const AppRouter = () => {
 	return (
@@ -48,6 +49,7 @@ const AppRouter = () => {
         <Route path="/addReview" element={<AddReview />} />
         <Route path="/roles" element={<Roles />} />
         <Route path="/AddUser" element={<AddUser />} />
+        <Route path="/edit/:id" element={<EditReview />} />
         <Route path="/review" element={<Review />} />
         <Route path="/addRoles" element={<AddRole/>} />
         <Route path="/user" element={<User />} />
