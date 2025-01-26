@@ -8,10 +8,14 @@ import axios from "axios";
 import "./Styles.css";
 import { Loading } from "./Loading";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 
 const Address = () => {
   const [address, setAddress] = useState([]);
   const defaultPageSize = 20;
+  const navigate = useNavigate();
+
   const fetchAddress = async () => {
     try {
       const response = await axios.get("http://localhost:8080/address/list");
@@ -25,6 +29,12 @@ const Address = () => {
     fetchAddress();
   }, []);
 
+  const handleEdit = (id) => {
+      console.log("Edit Roles ID:", id);
+      // Redirect to the EditReview component with the review ID
+      navigate(`/editAddress/${id}`);
+    };
+
   const columnDefs = [
     { headerName: "Id", field: "id", width: 90 },
     { headerName: "Address Line1", field: "addressLine1", width: 190 },
@@ -37,6 +47,16 @@ const Address = () => {
     { headerName: "CreatedAt", field: "createdAt", width: 190 },
     { headerName: "Updated At", field: "updatedAt", width: 190 },
     { headerName: "User Id", field: "userId", width: 120 },
+    {
+      headerName: "Edit",
+      field: "edit",
+      width: 100,
+      cellRenderer: (params) => (
+        <button className="custom-edit-button" onClick={() => handleEdit(params.data.id)}>
+          Edit
+        </button>
+      ),
+    },
   ];
 
 

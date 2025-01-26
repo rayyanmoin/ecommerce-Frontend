@@ -22,12 +22,13 @@ h1 {
 }
 .ag-theme-alpine .custom-edit-button {
   background-color: #4caf50;
-  color: black;
+  color: white;
   border: none;
   padding: 5px 10px;
   cursor: pointer;
   border-radius: 4px;
   display: inline-block;
+  
 }
 
 

@@ -9,9 +9,15 @@ import "./Styles.css";
 import { Loading } from "./Loading";
 import "react-toastify/dist/ReactToastify.css";
 
+import { useNavigate } from "react-router-dom";
+
+
 const Roles = () => {
   const [roles, setRoles] = useState([]);
   const defaultPageSize = 20; 
+
+  const navigate = useNavigate();
+
   const fetchRoles = async () => {
     try {
       const response = await axios.get("http://localhost:8080/roles/list");
@@ -25,10 +31,26 @@ const Roles = () => {
     fetchRoles();
   }, []);
 
+    const handleEdit = (id) => {
+      console.log("Edit Roles ID:", id);
+      // Redirect to the EditReview component with the review ID
+      navigate(`/editRole/${id}`);
+    };
+
   const columnDefs = [
-    { headerName: "Id", field: "id", width: 150 },
-    { headerName: "Name", field: "name", width: 260 },
+    { headerName: "Id", field: "id", width: 110 },
+    { headerName: "Name", field: "name", width: 230 },
     { headerName: "Description", field: "description", width: 550 },
+    {
+      headerName: "Edit",
+      field: "edit",
+      width: 100,
+      cellRenderer: (params) => (
+        <button className="custom-edit-button" onClick={() => handleEdit(params.data.id)}>
+          Edit
+        </button>
+      ),
+    }
   ];
 
   return (

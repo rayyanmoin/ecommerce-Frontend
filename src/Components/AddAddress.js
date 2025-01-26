@@ -1,7 +1,6 @@
 /** @format */
 
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -9,7 +8,7 @@ import "./Style.css";
 
 export const AddAddress = () => {
   const [addressData, setAddressData] = useState({
-    userId:"",
+    userId: 0,
     addressLine1: "",
     addressLine2: "",
     city: "",
@@ -23,88 +22,101 @@ export const AddAddress = () => {
 
   const [user, setUser] = useState([]);
 
-   const fetchUsers = async () => {
-     try {
-       const response = await axios.get("http://localhost:8080/users/dropUsers");
-       setUser(response.data);
-       console.log(response.data);
-     } catch (error) {
-       console.error("Error fetching user:", error);
-     }
-   };
+  // Fetch users from API
+  const fetchUsers = async () => {
+    try {
+      const response = await axios.get("http://localhost:8080/users/dropUsers");
+      setUser(response.data);
+      console.log(response.data);
+    } catch (error) {
+      console.error("Error fetching user:", error);
+    }
+  };
 
-   function replaceUserhWithId(name) {
-     const foundObject = user.find((obj) => obj.name === name);
-     return foundObject?.id;
-   }
+  // Utility to find user ID by name
+  const replaceUserhWithId = (name) => {
+    const foundUser = user.find((u) => u.name === name);
+    return foundUser ? foundUser.id : 0;
+  };
 
-   useEffect(() => {
-     fetchUsers();
-   }, []);
+  useEffect(() => {
+    fetchUsers();
+  }, []);
 
+  // Check if object has empty values
+  const hasEmptyValues = (obj) => Object.values(obj).some((value) => value === "" || value === null || value === undefined);
 
-
-  function hasEmptyValues(obj) {
-    return Object.values(obj).some((value) => value === "" || value === null || value === undefined);
-  }
-
-  const notify = () => toast("address Created Successfully!", { type: "success" });
-  const notifyError = () => toast("Error While Adding address!", { type: "error" });
+  // Notifications
+  const notify = () => toast("Address Created Successfully!", { type: "success" });
+  const notifyError = () => toast("Error While Adding Address!", { type: "error" });
   const notifyWarning = () => toast("Please Fill All The Fields!", { type: "warning" });
-  //const notifyPin = () => toast("The color provided should be having @gmail.com characters!", { type: "warning" });
 
-  const AddAddress = async () => {
+  // Add address handler
+  const addAddress = async () => {
     console.log(addressData);
     if (hasEmptyValues(addressData)) {
       notifyWarning();
       return;
-    } else {
-      try {
-        const response = await axios.post("http://localhost:8080/address/add", addressData);
-        setAddressData({
-          userId: "",
-          addressLine1: "",
-          addressLine2: "",
-          city: "",
-          state: "",
-          postalCode: "",
-          country: "",
-          addressType: "",
-          createdAt: "",
-          updatedAt: "",
-        });
-        notify();
-      } catch (error) {
-        notifyError();
-      }
+    }
+
+    try {
+      await axios.post("http://localhost:8080/address/add", addressData);
+      setAddressData({
+        userId: 0,
+        addressLine1: "",
+        addressLine2: "",
+        city: "",
+        state: "",
+        postalCode: "",
+        country: "",
+        addressType: "",
+        createdAt: new Date(),
+        updatedAt: new Date(),
+      });
+      notify();
+    } catch (error) {
+      notifyError();
     }
   };
 
+  // Handle input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
-    setAddressData({
-      ...addressData,
-      [name]: value,
-    });
+
+    // Update userId if the dropdown changes
+    if (name === "user") {
+      const userId = replaceUserhWithId(value);
+      setAddressData({
+        ...addressData,
+        userId,
+      });
+    } else {
+      setAddressData({
+        ...addressData,
+        [name]: value,
+      });
+    }
   };
 
   return (
     <div>
-      <br></br>
-      <br></br>
-      <br></br>
-      <br></br>
+      <br />
+      <br />
+      <br />
+      <br />
       <div className="cardssss">
         <h1>Place Address</h1>
 
         <div className="form-group">
-          <label htmlFor="user" class="required">
+          <label htmlFor="user" className="required">
             User Names
           </label>
-          <select id="statusOption" name="user" value={replaceUserhWithId(user.user)} onChange={handleInputChange}>
-            <option key={null} value={null}></option>
+          <select id="statusOption" name="user" value={user.find((u) => u.id === addressData.userId)?.name || ""} onChange={handleInputChange}>
+            <option value="" disabled>
+              Select User
+            </option>
             {user.map((g) => (
-              <option key={g.user} value={g.user}>
+              <option key={g.id} value={g.name}>
                 {g.name}
               </option>
             ))}
@@ -112,49 +124,55 @@ export const AddAddress = () => {
         </div>
 
         <div className="form-group">
-          <label htmlFor="addressLine1" class="required">
-            addressLine1
+          <label htmlFor="addressLine1" className="required">
+            Address Line 1
           </label>
           <input type="text" id="addressLine1" name="addressLine1" value={addressData.addressLine1} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="addressLine2" class="required">
-            addressLine2
+          <label htmlFor="addressLine2" className="required">
+            Address Line 2
           </label>
           <input type="text" id="addressLine2" name="addressLine2" value={addressData.addressLine2} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="city" class="required">
+          <label htmlFor="city" className="required">
             City
           </label>
           <input type="text" id="city" name="city" value={addressData.city} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="state" class="required">
+          <label htmlFor="state" className="required">
             State
           </label>
           <input type="text" id="state" name="state" value={addressData.state} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="postalCode" class="required">
+          <label htmlFor="postalCode" className="required">
             Postal Code
           </label>
           <input type="text" id="postalCode" name="postalCode" value={addressData.postalCode} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="country" class="required">
+          <label htmlFor="country" className="required">
             Country
           </label>
           <input type="text" id="country" name="country" value={addressData.country} onChange={handleInputChange} />
         </div>
+
         <div className="form-group">
-          <label htmlFor="addressType" class="required">
-            addressType
+          <label htmlFor="addressType" className="required">
+            Address Type
           </label>
           <input type="text" id="addressType" name="addressType" value={addressData.addressType} onChange={handleInputChange} />
         </div>
 
-        <button className="submitBtn" type="submit" onClick={AddAddress}>
+        <button className="submitBtn" type="button" onClick={addAddress}>
           Place Address
         </button>
       </div>

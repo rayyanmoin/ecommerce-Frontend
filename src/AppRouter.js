@@ -24,6 +24,10 @@ import AddReview from "./Components/AddReview.js";
 import AddRole from "./Components/AddRole.js";
 import AddUser from "./Components/AddUser.js";
 import EditReview from "./Components/EditReview.js";
+import EditRole from "./Components/EditRole.js";
+import EditCategory from "./Components/EditCategory.js";
+import { EditAddress } from "./Components/EditAddress.js";
+import { EditProduct } from "./Components/EditProduct.js";
 
 const AppRouter = () => {
 	return (
@@ -46,12 +50,16 @@ const AppRouter = () => {
         <Route path="/payment" element={<Payment />} />
         <Route path="/address" element={<Address />} />
         <Route path="/addAddress" element={<AddAddress />} />
+        <Route path="/editAddress/:id" element={<EditAddress />} />
         <Route path="/addReview" element={<AddReview />} />
         <Route path="/roles" element={<Roles />} />
         <Route path="/AddUser" element={<AddUser />} />
-        <Route path="/edit/:id" element={<EditReview />} />
+        <Route path="/editCategory/:id" element={<EditCategory />} />
+        <Route path="/editProduct/:id" element={<EditProduct />} />
+        <Route path="/editRole/:id" element={<EditRole />} />
+        <Route path="/editReview/:id" element={<EditReview />} />
         <Route path="/review" element={<Review />} />
-        <Route path="/addRoles" element={<AddRole/>} />
+        <Route path="/addRoles" element={<AddRole />} />
         <Route path="/user" element={<User />} />
       </Routes>
     </Router>

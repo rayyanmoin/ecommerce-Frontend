@@ -10,11 +10,16 @@ import axios from "axios";
 import "./Styles.css";
 import { Loading } from "./Loading";
 import "react-toastify/dist/ReactToastify.css";
+import { useNavigate } from "react-router-dom";
+
 
 const Category = () => {
  
   const [category, setCategory] = useState([]);
   const defaultPageSize = 20;
+  const navigate = useNavigate();
+
+
 	const fetchCategory = async () => {
 		try {
 			const response = await axios.get("http://localhost:8080/category/list");
@@ -23,6 +28,12 @@ const Category = () => {
 			console.error("Error fetching Category:", error);
 		}
 	};
+
+      const handleEdit = (id) => {
+        console.log("Edit Roles ID:", id);
+        // Redirect to the EditReview component with the review ID
+        navigate(`/editCategory/${id}`);
+      };
 
 	useEffect(() => {
 		fetchCategory();
@@ -33,6 +44,16 @@ const Category = () => {
     { headerName: "Name", field: "name", width: 190 },
     { headerName: "Description", field: "description", width: 450 },
     { headerName: "CreatedAt", field: "createdAt", width: 240 },
+    {
+      headerName: "Edit",
+      field: "edit",
+      width: 100,
+      cellRenderer: (params) => (
+        <button className="custom-edit-button" onClick={() => handleEdit(params.data.id)}>
+          Edit
+        </button>
+      ),
+    },
   ];
 
 	return (

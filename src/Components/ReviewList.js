@@ -30,7 +30,7 @@ const Review = () => {
   const handleEdit = (id) => {
     console.log("Edit Review ID:", id);
     // Redirect to the EditReview component with the review ID
-    navigate(`/edit/${id}`);
+    navigate(`/editReview/${id}`);
   };
 
 const columnDefs = [

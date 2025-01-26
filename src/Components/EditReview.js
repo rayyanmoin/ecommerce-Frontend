@@ -18,7 +18,7 @@ export const EditReview = () => {
   });
   const [products, setProducts] = useState([]);
   const [users, setUsers] = useState([]);
-  const [selectedProductId, setSelectedProductId] = useState("");
+  const [selectedProductId, setSelectedProductId] = useState("");                                                                   
   const [selectedUserId, setSelectedUserId] = useState("");
   const navigate = useNavigate(); // Hook to programmatically navigate
   

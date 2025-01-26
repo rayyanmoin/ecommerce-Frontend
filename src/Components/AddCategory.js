@@ -11,8 +11,6 @@ export const AddCategory = () => {
   const [categoryData, setCategoryData] = useState({
     name: "",
     description: "",
-    parentCategory: "",
-    subCategories: [],
     createdAt: new Date(),
     updatedAt: new Date(),
   });
@@ -39,8 +37,6 @@ export const AddCategory = () => {
         setCategoryData({
           name: "",
           description: "",
-          parentCategory: "",
-          subCategories: [],
           createdAt: "",
           updatedAt: "",
         });
@@ -65,7 +61,7 @@ export const AddCategory = () => {
       <br></br>
       <br></br>
       <br></br>
-      <div className="cardsss">
+      <div className="cardss">
         <h1>Create Category</h1>
 
         <div className="form-group">
@@ -80,18 +76,7 @@ export const AddCategory = () => {
           </label>
           <input type="text" id="description" name="description" value={categoryData.description} onChange={handleInputChange} />
         </div>
-        <div className="form-group">
-          <label htmlFor="parentCategory" class="required">
-            Parent Category
-          </label>
-          <input type="text" id="parentCategory" name="parentCategory" value={categoryData.parentCategory} onChange={handleInputChange} />
-        </div>
-        <div className="form-group">
-          <label htmlFor="subCategories" class="required">
-            Sub Categories
-          </label>
-          <input type="text" id="subCategories" name="subCategories" value={categoryData.subCategories} onChange={handleInputChange} />
-        </div>
+      
        
 
         <button className="submitBtn" type="submit" onClick={AddCategory}>
